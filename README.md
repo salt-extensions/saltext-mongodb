@@ -1,6 +1,6 @@
 # mongodb
 
-Salt Extension for interacting with Mongodb
+Salt Extension for interacting with MongoDB
 
 ## Quickstart
 
