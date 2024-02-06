@@ -10,5 +10,4 @@ _____________
     :toctree:
 
     mongodb_database
-    mongodb_mod
     mongodb_user

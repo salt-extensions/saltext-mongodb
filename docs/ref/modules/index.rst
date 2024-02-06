@@ -10,4 +10,3 @@ _________________
     :toctree:
 
     mongodb
-    mongodb_mod
