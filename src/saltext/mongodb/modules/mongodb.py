@@ -899,7 +899,7 @@ def update_one(
 ):
     """
     Update an object into a collection
-    http://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.update_one
+    https://pymongo.readthedocs.io/en/stable/api/pymongo/collection.html#pymongo.collection.Collection.update_one
 
     .. versionadded:: 2016.11.0
 
