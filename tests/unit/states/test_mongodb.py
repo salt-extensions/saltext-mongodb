@@ -1,8 +1,7 @@
 import pytest
+import salt.modules.test as testmod
 import saltext.mongodb.modules.mongodb_mod as mongodb_module
 import saltext.mongodb.states.mongodb_mod as mongodb_state
-
-import salt.modules.test as testmod
 
 
 @pytest.fixture

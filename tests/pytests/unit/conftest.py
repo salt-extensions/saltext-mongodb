@@ -3,7 +3,6 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 
 import pytest
-
 import salt.config
 import salt.transport.tcp
 
