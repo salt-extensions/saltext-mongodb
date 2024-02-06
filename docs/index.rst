@@ -1,11 +1,30 @@
-Welcome to mongodb Documentation!
-=================================
+``saltext-mongodb``: Integrate Salt with Mongodb
+================================================
+
+Salt Extension for interacting with MongoDB
 
 .. toctree::
   :maxdepth: 2
-  :caption: Contents:
+  :caption: Guides
+  :hidden:
 
-  all.rst
+  topics/installation
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Provided Modules
+  :hidden:
+
+  ref/modules/index
+  ref/states/index
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Reference
+  :hidden:
+
+  changelog
+
 
 Indices and tables
 ==================
