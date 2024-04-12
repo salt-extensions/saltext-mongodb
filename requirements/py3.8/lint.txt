@@ -20,7 +20,7 @@ distlib==0.3.7
     # via requirementslib
 docopt==0.6.2
     # via pipreqs
-idna==3.6
+idna==3.7
     # via requests
 isort==5.13.0
     # via pylint
