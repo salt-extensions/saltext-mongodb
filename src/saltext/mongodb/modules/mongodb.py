@@ -44,9 +44,7 @@ def __virtual__():
         )
 
 
-def _connect(
-    user=None, password=None, host=None, port=None, database="admin", authdb=None
-):
+def _connect(user=None, password=None, host=None, port=None, database="admin", authdb=None):
     """
     Returns a tuple of (user, host, port) with config, pillar, or default
     values assigned to missing values.
@@ -207,9 +205,7 @@ def _version(mdb):
     return mdb.command("buildInfo")["version"]
 
 
-def version(
-    user=None, password=None, host=None, port=None, database="admin", authdb=None
-):
+def version(user=None, password=None, host=None, port=None, database="admin", authdb=None):
     """
     Get MongoDB instance version
 
@@ -236,7 +232,7 @@ def version(
     """
     conn = _connect(user, password, host, port, authdb=authdb)
     if not conn:
-        err_msg = "Failed to connect to MongoDB database {}:{}".format(host, port)
+        err_msg = f"Failed to connect to MongoDB database {host}:{port}"
         log.error(err_msg)
         return (False, err_msg)
 
@@ -248,9 +244,7 @@ def version(
         return str(err)
 
 
-def user_find(
-    name, user=None, password=None, host=None, port=None, database="admin", authdb=None
-):
+def user_find(name, user=None, password=None, host=None, port=None, database="admin", authdb=None):
     """
     Get single user from MongoDB
 
@@ -283,7 +277,7 @@ def user_find(
     """
     conn = _connect(user, password, host, port, authdb=authdb)
     if not conn:
-        err_msg = "Failed to connect to MongoDB database {}:{}".format(host, port)
+        err_msg = f"Failed to connect to MongoDB database {host}:{port}"
         log.error(err_msg)
         return (False, err_msg)
 
@@ -295,9 +289,7 @@ def user_find(
         return (False, str(err))
 
 
-def user_list(
-    user=None, password=None, host=None, port=None, database="admin", authdb=None
-):
+def user_list(user=None, password=None, host=None, port=None, database="admin", authdb=None):
     """
     List users of a MongoDB database
 
@@ -341,9 +333,7 @@ def user_list(
                 output.append({"user": user["user"], "roles": user["roles"]})
         else:
             for user in mdb.system.users.find():
-                output.append(
-                    {"user": user["user"], "readOnly": user.get("readOnly", "None")}
-                )
+                output.append({"user": user["user"], "readOnly": user.get("readOnly", "None")})
         return output
 
     except pymongo.errors.PyMongoError as err:
@@ -620,9 +610,7 @@ def user_grant_roles(
         mdb = pymongo.database.Database(conn, database)
         mdb.command("grantRolesToUser", name, roles=roles)
     except pymongo.errors.PyMongoError as err:
-        log.error(
-            "Granting roles %s to user %s failed with error: %s", roles, name, err
-        )
+        log.error("Granting roles %s to user %s failed with error: %s", roles, name, err)
         return str(err)
 
     return True
@@ -679,9 +667,7 @@ def user_revoke_roles(
         mdb = pymongo.database.Database(conn, database)
         mdb.command("revokeRolesFromUser", name, roles=roles)
     except pymongo.errors.PyMongoError as err:
-        log.error(
-            "Revoking roles %s from user %s failed with error: %s", roles, name, err
-        )
+        log.error("Revoking roles %s from user %s failed with error: %s", roles, name, err)
         return str(err)
 
     return True
@@ -735,9 +721,7 @@ def collection_create(
         mdb = pymongo.database.Database(conn, database)
         mdb.create_collection(collection)
     except pymongo.errors.PyMongoError as err:
-        log.error(
-            "Creating collection %r.%r failed with error %s", database, collection, err
-        )
+        log.error("Creating collection %r.%r failed with error %s", database, collection, err)
         return err
     return True
 
@@ -790,9 +774,7 @@ def collection_drop(
         mdb = pymongo.database.Database(conn, database)
         mdb.drop_collection(collection)
     except pymongo.errors.PyMongoError as err:
-        log.error(
-            "Creating collection %r.%r failed with error %s", database, collection, err
-        )
+        log.error("Creating collection %r.%r failed with error %s", database, collection, err)
         return err
     return True
 
@@ -918,7 +900,7 @@ def update_one(
 ):
     """
     Update an object into a collection
-    http://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.update_one
+    https://pymongo.readthedocs.io/en/stable/api/pymongo/collection.html#pymongo.collection.Collection.update_one
 
     .. versionadded:: 2016.11.0
 
@@ -959,8 +941,7 @@ def update_one(
 
     if len(objs) != 2:
         return (
-            "Your request does not contain a valid "
-            + '\'{_"id": "my_id"} {"my_doc": "my_val"}\''
+            "Your request does not contain a valid " + '\'{_"id": "my_id"} {"my_doc": "my_val"}\''
         )
 
     objs[0] = objs[0] + "}"
@@ -993,7 +974,7 @@ def update_one(
             col = getattr(mdb, collection)
             ids = col.update_one(_id_field, {"$set": _update_doc})
             nb_mod = ids.modified_count
-            return "{} objects updated".format(nb_mod)
+            return f"{nb_mod} objects updated"
         except pymongo.errors.PyMongoError as err:
             log.error("Updating object %s failed with error %s", objects, err)
             return err
@@ -1139,7 +1120,7 @@ def remove(
             for count in range(0, w):
                 res = col.delete_one(query)
                 deleted_count += res.deleted_count
-        return "{} objects removed".format(deleted_count)
+        return f"{deleted_count} objects removed"
     except pymongo.errors.PyMongoError as err:
         log.error("Removing objects failed with error: %s", _get_error_message(err))
         return _get_error_message(err)
