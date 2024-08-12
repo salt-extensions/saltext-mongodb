@@ -46,16 +46,12 @@ def absent(name, user=None, password=None, host=None, port=None, authdb=None):
     if __salt__["mongodb.db_exists"](name, user, password, host, port, authdb=authdb):
         if __opts__["test"]:
             ret["result"] = None
-            ret["comment"] = "Database {} is present and needs to be removed".format(
-                name
-            )
+            ret["comment"] = f"Database {name} is present and needs to be removed"
             return ret
-        if __salt__["mongodb.db_remove"](
-            name, user, password, host, port, authdb=authdb
-        ):
-            ret["comment"] = "Database {} has been removed".format(name)
+        if __salt__["mongodb.db_remove"](name, user, password, host, port, authdb=authdb):
+            ret["comment"] = f"Database {name} has been removed"
             ret["changes"][name] = "Absent"
             return ret
 
-    ret["comment"] = "Database {} is not present".format(name)
+    ret["comment"] = f"Database {name} is not present"
     return ret
