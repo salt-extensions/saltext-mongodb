@@ -479,7 +479,7 @@ def user_remove(
 
         salt '*' mongodb.user_remove <name> <user> <password> <host> <port> <database>
     """
-    conn = _connect(user, password, host, port)
+    conn = _connect(user, password, host, port, authdb=authdb)
     if not conn:
         return "Failed to connect to mongo database"
 
@@ -1038,11 +1038,10 @@ def find(
             ret = []
             for _query in query:
                 res = col.find(_query)
-                _ret = [_res for _res in res]
-                ret.extend(_ret)
+                ret.extend(res)
         else:
             res = col.find(query)
-            ret = [_res for _res in res]
+            ret = list(res)
         return ret
     except pymongo.errors.PyMongoError as err:
         log.error("Searching objects failed with error: %s", err)
@@ -1113,11 +1112,11 @@ def remove(
         deleted_count = 0
         if isinstance(query, list):
             for _query in query:
-                for count in range(0, w):
+                for _ in range(0, w):
                     res = col.delete_one(_query)
                     deleted_count += res.deleted_count
         else:
-            for count in range(0, w):
+            for _ in range(0, w):
                 res = col.delete_one(query)
                 deleted_count += res.deleted_count
         return f"{deleted_count} objects removed"
