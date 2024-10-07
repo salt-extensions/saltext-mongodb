@@ -1,4 +1,4 @@
-``saltext-mongodb``: Integrate Salt with Mongodb
+``saltext-mongodb``: Integrate Salt with MongoDB
 ================================================
 
 Salt Extension for interacting with MongoDB
