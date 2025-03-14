@@ -1,5 +1,5 @@
 """
-    :codeauthor: Gareth J. Greenaway <ggreenaway@vmware.com>
+:codeauthor: Gareth J. Greenaway <ggreenaway@vmware.com>
 """
 
 from unittest.mock import MagicMock
